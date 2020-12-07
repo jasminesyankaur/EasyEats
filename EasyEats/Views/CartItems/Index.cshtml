@@ -1,0 +1,55 @@
+﻿@model IEnumerable<EasyEats.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="container2">
+<h1>Shopping Cart</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Menuitem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalCost)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Menuitem.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Menuitem.Price)
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.ID">Remove Item</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+<table class="table">
+    <tr>
+        <th>Total:</th>
+        <td>@Model.Sum(i => i.Menuitem.Price)</td>
+        <td>
+            <form asp-action="PayNow">
+                <input type="hidden" />
+                <button type="submit" class="btn btn-primary">CHECKOUT</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</section>
+
